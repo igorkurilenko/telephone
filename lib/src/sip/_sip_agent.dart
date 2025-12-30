@@ -23,7 +23,7 @@ class _SipAgent implements SipService {
   bool get registered => _sipAgentHelper.registered;
 
   @override
-  void connect({
+  Future<void> connect({
     required SipEndpoint endpoint,
     required SipAccount account,
   }) async {
@@ -82,7 +82,7 @@ class _SipAgent implements SipService {
   }
 
   @override
-  void answer(Call call) async {
+  Future<void> answer(Call call) async {
     if (defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS) {
       await Permission.microphone.request();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -10,6 +12,8 @@ import 'package:toastification/toastification.dart';
 import 'widgets/call_dialog.dart';
 import 'widgets/incoming_call_widget.dart';
 
+part 'call/call_manager.dart';
+part 'call/call_session.dart';
 part 'sip/model/call_direction.dart';
 part 'sip/model/sip_account.dart';
 part 'sip/model/sip_endpoint.dart';
@@ -34,6 +38,15 @@ class Telephone extends StatefulWidget {
   final TelephoneCallWidgetBuilder callDialogBuilder;
   final String? userAgent;
 
+  /// Optional CallManager configuration
+  /// If provided, enables enhanced call management features
+  final CallManagerConfig? callManagerConfig;
+
+  /// Callbacks for CallManager (only used if callManagerConfig is provided)
+  final OnIncomingCallCallback? onIncomingCall;
+  final OnCallAcceptedCallback? onCallAccepted;
+  final OnCallEndedCallback? onCallEnded;
+
   const Telephone({
     super.key,
     required this.child,
@@ -41,6 +54,10 @@ class Telephone extends StatefulWidget {
     this.incomingCallWidgetBuilder = Telephone.defaultIncomingCallWidgetBuilder,
     this.callDialogBuilder = Telephone.defaultCallDialogBuilder,
     this.userAgent,
+    this.callManagerConfig,
+    this.onIncomingCall,
+    this.onCallAccepted,
+    this.onCallEnded,
   });
 
   @override
@@ -106,6 +123,12 @@ class TelephoneState extends State<Telephone>
   final _toastsByCall = <Call, ToastificationItem>{};
   Call? _activeCall;
 
+  /// CallManager instance (if enabled via callManagerConfig)
+  CallManager? _callManager;
+
+  /// Access to CallManager for enhanced features
+  CallManager? get callManager => _callManager;
+
   Call? get acceptedCall => _activeCall;
 
   Iterable<Call> get incomingCalls => _toastsByCall.keys;
@@ -124,24 +147,37 @@ class TelephoneState extends State<Telephone>
         'Only one instance of the Telephone widget is allowed in the widget tree.');
 
     _sipAgent.addSipServiceListener(this);
+
+    // Initialize CallManager if config provided
+    if (widget.callManagerConfig != null) {
+      _callManager = CallManager(
+        sipService: this,
+        config: widget.callManagerConfig!,
+        onIncomingCall: widget.onIncomingCall,
+        onCallAccepted: widget.onCallAccepted,
+        onCallEnded: widget.onCallEnded,
+      );
+    }
   }
 
   @override
   void dispose() {
+    _callManager?.dispose();
     _sipAgent.removeSipServiceListener(this);
     _sipAgent.disconnect();
     super.dispose();
   }
 
   @override
-  void connect({required SipEndpoint endpoint, required SipAccount account}) =>
+  Future<void> connect(
+          {required SipEndpoint endpoint, required SipAccount account}) =>
       _sipAgent.connect(endpoint: endpoint, account: account);
 
   @override
   Future<bool> call(String target) => _sipAgent.call(target);
 
   @override
-  void answer(Call call) => _sipAgent.answer(call);
+  Future<void> answer(Call call) => _sipAgent.answer(call);
 
   @override
   void hangup(Call call) => _sipAgent.hangup(call);
@@ -163,12 +199,7 @@ class TelephoneState extends State<Telephone>
   void disconnect() => _sipAgent.disconnect();
 
   @override
-  void registrationStateChanged(RegistrationState state) {
-    print('----');
-    print('connected: ${_sipAgent.connected}');
-    print('connecting: ${_sipAgent.connecting}');
-    print('registered: ${_sipAgent.registered}');
-  }
+  void registrationStateChanged(RegistrationState state) {}
 
   @override
   void callStateChanged(Call call, CallState callState) {
@@ -225,10 +256,19 @@ class TelephoneState extends State<Telephone>
   }
 
   void _showActiveCallDialog(Call call) {
+    final callWidget = widget.callDialogBuilder(context, _sipAgent, call);
+
+    // Don't show dialog if builder returns SizedBox.shrink()
+    if (callWidget.runtimeType.toString() == 'SizedBox') {
+      final sizedBox = callWidget as SizedBox;
+      if (sizedBox.width == 0.0 && sizedBox.height == 0.0) {
+        return;
+      }
+    }
+
     showGeneralDialog(
       context: context,
-      pageBuilder: (context, animation, secAnimation) =>
-          widget.callDialogBuilder(context, _sipAgent, call),
+      pageBuilder: (context, animation, secAnimation) => callWidget,
     );
   }
 
@@ -237,7 +277,7 @@ class TelephoneState extends State<Telephone>
       context: context,
       alignment: Alignment.topCenter,
       builder: (BuildContext context, ToastificationItem holder) => Dismissible(
-        key: ValueKey(call.id),
+        key: ValueKey(call.id ?? call.hashCode),
         direction: DismissDirection.up,
         behavior: HitTestBehavior.deferToChild,
         onDismissed: (_) => _dismissIncomingCallToast(

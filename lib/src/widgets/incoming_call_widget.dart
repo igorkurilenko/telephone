@@ -62,11 +62,10 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     color: Colors.white,
                     iconSize: 24,
                     padding: const EdgeInsets.all(8),
-                    splashRadius: 30, // Makes button circular
                     constraints:
                         const BoxConstraints(minWidth: 50, minHeight: 50),
                     splashColor: Colors.redAccent,
-                    highlightColor: Colors.red.withOpacity(0.3),
+                    highlightColor: Colors.red.withValues(alpha: 0.3),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -81,11 +80,10 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     color: Colors.white,
                     iconSize: 24,
                     padding: const EdgeInsets.all(8),
-                    splashRadius: 30, // Makes button circular
                     constraints:
                         const BoxConstraints(minWidth: 50, minHeight: 50),
                     splashColor: Colors.blueAccent,
-                    highlightColor: Colors.blue.withOpacity(0.3),
+                    highlightColor: Colors.blue.withValues(alpha: 0.3),
                   ),
                 ),
               ],

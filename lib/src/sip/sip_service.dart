@@ -1,14 +1,14 @@
 part of '../telephone.dart';
 
 abstract class SipService implements HasSipServiceListeners{
-  void connect({
+  Future<void> connect({
     required SipEndpoint endpoint,
     required SipAccount account,
   });
 
   Future<bool> call(String target);
 
-  void answer(Call call);
+  Future<void> answer(Call call);
 
   void hangup(Call call);
 
