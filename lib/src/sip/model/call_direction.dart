@@ -1,11 +1,7 @@
 part of '../../telephone.dart';
 
 class CallDirection {
-  static const outgoing = 'outgoing';
-  static const incoming = 'incoming';
+  static bool isOutgoing(Call call) => call.direction == Direction.outgoing;
 
-  static bool isOutgoing(Call call) => !isIncoming(call);
-
-  static bool isIncoming(Call call) =>
-      call.direction.toLowerCase() == incoming.toLowerCase();
+  static bool isIncoming(Call call) => call.direction == Direction.incoming;
 }

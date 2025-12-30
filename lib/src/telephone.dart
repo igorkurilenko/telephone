@@ -105,6 +105,7 @@ class TelephoneState extends State<Telephone>
   );
   final _toastsByCall = <Call, ToastificationItem>{};
   Call? _activeCall;
+  bool _dialogShown = false;
 
   Call? get acceptedCall => _activeCall;
 
@@ -163,12 +164,7 @@ class TelephoneState extends State<Telephone>
   void disconnect() => _sipAgent.disconnect();
 
   @override
-  void registrationStateChanged(RegistrationState state) {
-    print('----');
-    print('connected: ${_sipAgent.connected}');
-    print('connecting: ${_sipAgent.connecting}');
-    print('registered: ${_sipAgent.registered}');
-  }
+  void registrationStateChanged(RegistrationState state) {}
 
   @override
   void callStateChanged(Call call, CallState callState) {
@@ -197,6 +193,15 @@ class TelephoneState extends State<Telephone>
       : _handleOutgoingCallInitiation(call);
 
   void _handleIncomingCallInitiation(Call call) {
+    if (_activeCall != null) {
+      call.hangup();
+      return;
+    }
+
+    // Show CallScreen immediately for incoming calls to catch STREAM events
+    _activeCall = call;
+    _showActiveCallDialog(call);
+
     if (kIsWeb) {
       _showIncomingCallToast(call);
     }
@@ -221,10 +226,14 @@ class TelephoneState extends State<Telephone>
 
     if (_activeCall == call) {
       _activeCall = null;
+      _dialogShown = false;
     }
   }
 
   void _showActiveCallDialog(Call call) {
+    if (_dialogShown) return;
+    _dialogShown = true;
+
     showGeneralDialog(
       context: context,
       pageBuilder: (context, animation, secAnimation) =>
