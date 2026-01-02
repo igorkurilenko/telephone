@@ -27,11 +27,15 @@ typedef TelephoneCallWidgetBuilder = Widget Function(
 
 typedef IncomingCallCallback = void Function(SipService sipService, Call call);
 
+typedef CallDialogAnimation = Future<void> Function(
+    BuildContext context, WidgetBuilder callDialogBuilder);
+
 class Telephone extends StatefulWidget {
   final Widget child;
   final TelephoneLayoutBuilder layoutBuilder;
   final TelephoneCallWidgetBuilder incomingCallWidgetBuilder;
   final TelephoneCallWidgetBuilder callDialogBuilder;
+  final CallDialogAnimation? callDialogAnimation;
   final String? userAgent;
 
   const Telephone({
@@ -40,6 +44,7 @@ class Telephone extends StatefulWidget {
     this.layoutBuilder = Telephone.defaultLayoutBuilder,
     this.incomingCallWidgetBuilder = Telephone.defaultIncomingCallWidgetBuilder,
     this.callDialogBuilder = Telephone.defaultCallDialogBuilder,
+    this.callDialogAnimation,
     this.userAgent,
   });
 
@@ -234,11 +239,18 @@ class TelephoneState extends State<Telephone>
     if (_dialogShown) return;
     _dialogShown = true;
 
-    showGeneralDialog(
-      context: context,
-      pageBuilder: (context, animation, secAnimation) =>
-          widget.callDialogBuilder(context, _sipAgent, call),
-    );
+    if (widget.callDialogAnimation != null) {
+      widget.callDialogAnimation!(
+        context,
+        (context) => widget.callDialogBuilder(context, _sipAgent, call),
+      );
+    } else {
+      showGeneralDialog(
+        context: context,
+        pageBuilder: (context, animation, secAnimation) =>
+            widget.callDialogBuilder(context, _sipAgent, call),
+      );
+    }
   }
 
   void _showIncomingCallToast(Call call) {
