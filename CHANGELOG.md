@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/igorkurilenko/telephone/compare/v0.1.1...v0.1.2) (2026-01-03)
+
+
+### Bug Fixes
+
+* release pipeline ([526f83e](https://github.com/igorkurilenko/telephone/commit/526f83e979c2c320ddf6035e5d080dab21acb00a))
+
 ## [0.1.1](https://github.com/igorkurilenko/telephone/compare/v0.1.0...v0.1.1) (2026-01-03)
 
 
