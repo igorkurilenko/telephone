@@ -6,16 +6,18 @@ on:
 
 jobs:
   release:
+    # don't run release workflow on the commit created by semantic-release itself
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to push commits + tags
+      contents: write
       issues: write
       pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # semantic-release needs full history + tags
+          fetch-depth: 0
           token: ${{ secrets.RELEASE_PAT }}
 
       - uses: actions/setup-node@v4
@@ -27,4 +29,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
           GH_TOKEN: ${{ secrets.RELEASE_PAT }}
-
