@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/igorkurilenko/telephone/compare/v0.1.0...v0.1.1) (2026-01-03)
+
+
+### Bug Fixes
+
+* trigger build ([d1e1c20](https://github.com/igorkurilenko/telephone/commit/d1e1c20e07a7100bc7b4c8bd9b02bd51a800d87e))
+
 # [0.1.0](https://github.com/igorkurilenko/telephone/compare/v0.0.1...v0.1.0) (2026-01-03)
 
 
