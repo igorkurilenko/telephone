@@ -14,10 +14,7 @@ dependencies:
   logger: ^2.6.0
   package_info_plus: ^9.0.0
   permission_handler: ^12.0.0
-  sip_ua:
-    git:
-      url: https://github.com/4ternity/dart-sip-ua.git
-      ref: fix/web-js-interop
+  sip_ua: ^1.1.0
   toastification: ^2.3.0
 
 dev_dependencies:

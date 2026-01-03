@@ -14,9 +14,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: flutter-actions/setup-flutter@v4
       - uses: flutter-actions/setup-pubdev-credentials@v1
 
       - run: flutter pub get
-      - run: flutter pub publish --force
+
+      - name: Debug version + dry run
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          grep -n "^version:" pubspec.yaml || true
+          flutter pub publish --dry-run
+
+      - name: Publish
+        run: flutter pub publish --force
