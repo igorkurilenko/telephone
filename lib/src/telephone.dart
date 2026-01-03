@@ -27,15 +27,14 @@ typedef TelephoneCallWidgetBuilder = Widget Function(
 
 typedef IncomingCallCallback = void Function(SipService sipService, Call call);
 
-typedef CallDialogAnimation = Future<void> Function(
-    BuildContext context, WidgetBuilder callDialogBuilder);
+typedef ShowActiveCallDialog = void Function(
+    BuildContext context, SipService sipService, Call call);
 
 class Telephone extends StatefulWidget {
   final Widget child;
   final TelephoneLayoutBuilder layoutBuilder;
   final TelephoneCallWidgetBuilder incomingCallWidgetBuilder;
-  final TelephoneCallWidgetBuilder callDialogBuilder;
-  final CallDialogAnimation? callDialogAnimation;
+  final ShowActiveCallDialog showActiveCallDialog;
   final String? userAgent;
 
   const Telephone({
@@ -43,8 +42,7 @@ class Telephone extends StatefulWidget {
     required this.child,
     this.layoutBuilder = Telephone.defaultLayoutBuilder,
     this.incomingCallWidgetBuilder = Telephone.defaultIncomingCallWidgetBuilder,
-    this.callDialogBuilder = Telephone.defaultCallDialogBuilder,
-    this.callDialogAnimation,
+    this.showActiveCallDialog = Telephone.defaultShowActiveCallDialog,
     this.userAgent,
   });
 
@@ -71,15 +69,18 @@ class Telephone extends StatefulWidget {
         call: call,
       );
 
-  static Widget defaultCallDialogBuilder(
+  static void defaultShowActiveCallDialog(
     BuildContext context,
     SipService sipService,
     Call call,
-  ) =>
-      CallDialog(
-        sipService: sipService,
-        call: call,
-      );
+  ) {
+    showGeneralDialog(
+        context: context,
+        pageBuilder: (context, animation, secAnimation) => CallDialog(
+              sipService: sipService,
+              call: call,
+            ));
+  }
 
   static TelephoneState of(BuildContext context) {
     final TelephoneState? result = Telephone.maybeOf(context);
@@ -239,18 +240,7 @@ class TelephoneState extends State<Telephone>
     if (_dialogShown) return;
     _dialogShown = true;
 
-    if (widget.callDialogAnimation != null) {
-      widget.callDialogAnimation!(
-        context,
-        (context) => widget.callDialogBuilder(context, _sipAgent, call),
-      );
-    } else {
-      showGeneralDialog(
-        context: context,
-        pageBuilder: (context, animation, secAnimation) =>
-            widget.callDialogBuilder(context, _sipAgent, call),
-      );
-    }
+    widget.showActiveCallDialog(context, this, call);
   }
 
   void _showIncomingCallToast(Call call) {
