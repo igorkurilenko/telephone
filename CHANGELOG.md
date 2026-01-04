@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/igorkurilenko/telephone/compare/v0.1.3...v0.1.4) (2026-01-04)
+
+
+### Bug Fixes
+
+* trigger publish pipeline ([a9ca903](https://github.com/igorkurilenko/telephone/commit/a9ca903cf8f174d6288c53a9e035653bd2988080))
+
 ## [0.1.3](https://github.com/igorkurilenko/telephone/compare/v0.1.2...v0.1.3) (2026-01-04)
 
 
