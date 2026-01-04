@@ -4,7 +4,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sip_ua/sip_ua.dart';
+import 'package:sip_ua_webrtc_fixed/sip_ua_webrtc_fixed.dart';
 import 'package:toastification/toastification.dart';
 
 import 'widgets/call_dialog.dart';
