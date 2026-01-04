@@ -7,26 +7,6 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: flutter-actions/setup-flutter@v4
-      - uses: flutter-actions/setup-pubdev-credentials@v1
-
-      - run: flutter pub get
-
-      - name: Debug version + dry run
-        run: |
-          echo "GITHUB_REF=$GITHUB_REF"
-          grep -n "^version:" pubspec.yaml || true
-          flutter pub publish --dry-run
-
-      - name: Publish
-        run: flutter pub publish --force
+      id-token: write 
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1

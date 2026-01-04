@@ -411,11 +411,10 @@ packages:
   sip_ua:
     dependency: transitive
     description:
-      path: "."
-      ref: "fix/web-js-interop"
-      resolved-ref: ab6dad69761aef7dc7803a425479bb00895891e4
-      url: "https://github.com/4ternity/dart-sip-ua.git"
-    source: git
+      name: sip_ua
+      sha256: "09b107901365d25779a9dbdb7d8396cdd76d1c48dc367155a3dc9021126fbab7"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.1.0"
   sky_engine:
     dependency: transitive
@@ -476,7 +475,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.1"
   term_glyph:
     dependency: transitive
     description:
