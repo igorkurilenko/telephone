@@ -1,6 +1,6 @@
 name: telephone
 description: "`telephone` offers a simplified wrapper around `sip_ua` for Flutter, facilitating seamless integration of SIP-based VoIP capabilities with customizable widgets for handling call interfaces and states efficiently."
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/igorkurilenko/telephone
 
 environment:
