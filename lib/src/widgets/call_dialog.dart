@@ -55,9 +55,8 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
             ),
           ),
           if (kIsWeb)
-            SizedBox(
-              width: 0,
-              height: 0,
+            Offstage(
+              offstage: true,
               child: RTCVideoView(_remoteRenderer),
             ),
         ],
