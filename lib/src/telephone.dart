@@ -208,9 +208,7 @@ class TelephoneState extends State<Telephone>
     _activeCall = call;
     _showActiveCallDialog(call);
 
-    if (kIsWeb) {
-      _showIncomingCallToast(call);
-    }
+    _showIncomingCallToast(call);
   }
 
   void _handleOutgoingCallInitiation(Call call) {
