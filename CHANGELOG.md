@@ -1,3 +1,10 @@
+## [0.1.5](https://github.com/igorkurilenko/telephone/compare/v0.1.4...v0.1.5) (2026-01-06)
+
+
+### Bug Fixes
+
+* enable web audio playback ([d1e2972](https://github.com/igorkurilenko/telephone/commit/d1e297221fd8438ebf99e9d3a95327664ac668ef))
+
 ## [0.1.4](https://github.com/igorkurilenko/telephone/compare/v0.1.3...v0.1.4) (2026-01-04)
 
 
