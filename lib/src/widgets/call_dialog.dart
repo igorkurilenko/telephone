@@ -46,11 +46,21 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          callTitle,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: Text(
+              callTitle,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          if (kIsWeb)
+            SizedBox(
+              width: 0,
+              height: 0,
+              child: RTCVideoView(_remoteRenderer),
+            ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
