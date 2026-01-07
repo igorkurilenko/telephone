@@ -408,11 +408,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.2"
-  sip_ua:
+  sip_ua_webrtc_fixed:
     dependency: transitive
     description:
-      name: sip_ua
-      sha256: "09b107901365d25779a9dbdb7d8396cdd76d1c48dc367155a3dc9021126fbab7"
+      name: sip_ua_webrtc_fixed
+      sha256: a14c3b97c4b640e187827918add8e1b127b1c467a4202d21db6987fac54699d6
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
@@ -475,7 +475,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.1"
+    version: "0.1.6"
   term_glyph:
     dependency: transitive
     description:

@@ -4,9 +4,6 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 import '../../telephone.dart';
 
-const _kLocalOriginator = 'local';
-const _kRemoteOriginator = 'remote';
-
 class CallDialog extends StatefulWidget {
   final SipService sipService;
   final Call call;
@@ -119,7 +116,7 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
   void _handleCallEnded(CallState callState) => Navigator.of(context).pop();
 
   void _handleCallStream(CallState callState) {
-    if (callState.originator == _kLocalOriginator) {
+    if (callState.originator == Originator.local) {
       _localRenderer.srcObject = callState.stream;
 
       if (!kIsWeb && !WebRTC.platformIsDesktop) {
@@ -127,7 +124,7 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
       }
     }
 
-    if (callState.originator == _kRemoteOriginator) {
+    if (callState.originator == Originator.remote) {
       _remoteRenderer.srcObject = callState.stream;
     }
   }
