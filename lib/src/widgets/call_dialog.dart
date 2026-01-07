@@ -51,11 +51,6 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          if (kIsWeb)
-            Offstage(
-              offstage: true,
-              child: RTCVideoView(_remoteRenderer),
-            ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
