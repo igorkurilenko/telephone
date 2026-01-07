@@ -1,3 +1,10 @@
+## [0.1.8](https://github.com/igorkurilenko/telephone/compare/v0.1.7...v0.1.8) (2026-01-07)
+
+
+### Bug Fixes
+
+* remove RTCVideoView ([e0a525a](https://github.com/igorkurilenko/telephone/commit/e0a525a048ca40bf68fe8640cbe87c26ef922c41))
+
 ## [0.1.7](https://github.com/igorkurilenko/telephone/compare/v0.1.6...v0.1.7) (2026-01-07)
 
 
