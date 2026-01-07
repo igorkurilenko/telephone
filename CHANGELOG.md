@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/igorkurilenko/telephone/compare/v0.1.5...v0.1.6) (2026-01-07)
+
+
+### Bug Fixes
+
+* use Offstage for RTCVideoView ([5e71d4d](https://github.com/igorkurilenko/telephone/commit/5e71d4dcd3bc885d06649d9dffb0b9d4d18fa40a))
+
 ## [0.1.5](https://github.com/igorkurilenko/telephone/compare/v0.1.4...v0.1.5) (2026-01-06)
 
 
