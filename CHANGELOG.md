@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/igorkurilenko/telephone/compare/v0.1.6...v0.1.7) (2026-01-07)
+
+
+### Bug Fixes
+
+* correct originator checking ([5d5eed3](https://github.com/igorkurilenko/telephone/commit/5d5eed3e0d4cd2c3d663f36766534ca34ded8e99))
+
 ## [0.1.6](https://github.com/igorkurilenko/telephone/compare/v0.1.5...v0.1.6) (2026-01-07)
 
 
