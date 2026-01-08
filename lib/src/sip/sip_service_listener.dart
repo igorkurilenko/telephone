@@ -4,6 +4,8 @@ abstract class SipServiceListener {
   void registrationStateChanged(RegistrationState state);
 
   void callStateChanged(Call call, CallState state);
+  
+  void transportStateChanged(TransportState state);
 }
 
 class SipUaHelperListenerAdapter implements SipUaHelperListener {
@@ -21,7 +23,9 @@ class SipUaHelperListenerAdapter implements SipUaHelperListener {
       listener.callStateChanged(call, state);
 
   @override
-  void transportStateChanged(TransportState state) {}
+  void transportStateChanged(TransportState state) {
+    listener.transportStateChanged(state);
+  }
 
   @override
   void onNewMessage(SIPMessageRequest msg) {}

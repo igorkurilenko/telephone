@@ -123,4 +123,8 @@ class _CallDialogState extends State<CallDialog> implements SipServiceListener {
       _remoteRenderer.srcObject = callState.stream;
     }
   }
+  
+  @override
+  void transportStateChanged(TransportState state) {
+  }
 }

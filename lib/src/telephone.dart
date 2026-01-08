@@ -272,4 +272,8 @@ class TelephoneState extends State<Telephone>
       );
     }
   }
+  
+  @override
+  void transportStateChanged(TransportState state) {
+  }
 }

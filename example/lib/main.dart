@@ -74,4 +74,7 @@ class _TelephoneExampleState extends State<TelephoneExample>
           child: Text('Hello Telephone!'),
         ),
       );
+
+  @override
+  void transportStateChanged(TransportState state) {}
 }

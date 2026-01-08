@@ -105,4 +105,8 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
   void callStateChanged(Call call, CallState state) {
     // TODO: manage state of buttons
   }
+  
+  @override
+  void transportStateChanged(TransportState state) {
+  }
 }
