@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/igorkurilenko/telephone/compare/v0.1.8...v0.2.0) (2026-01-08)
+
+
+### Features
+
+* listen transportStateChanged ([72d2385](https://github.com/igorkurilenko/telephone/commit/72d23851a49afffdaee161883072e296a03f88a9))
+
 ## [0.1.8](https://github.com/igorkurilenko/telephone/compare/v0.1.7...v0.1.8) (2026-01-07)
 
 
