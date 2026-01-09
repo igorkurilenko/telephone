@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/igorkurilenko/telephone/compare/v0.2.0...v0.3.0) (2026-01-09)
+
+
+### Features
+
+* simplify API and move UI to example ([009ccdd](https://github.com/igorkurilenko/telephone/commit/009ccdd207814e4630464210abd80a13afc9d024))
+
 # [0.2.0](https://github.com/igorkurilenko/telephone/compare/v0.1.8...v0.2.0) (2026-01-08)
 
 
