@@ -475,7 +475,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.6"
+    version: "0.1.8"
   term_glyph:
     dependency: transitive
     description:
@@ -501,7 +501,7 @@ packages:
     source: hosted
     version: "0.2.0"
   toastification:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: toastification
       sha256: "4d97fbfa463dfe83691044cba9f37cb185a79bb9205cfecb655fa1f6be126a13"

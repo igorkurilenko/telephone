@@ -1,39 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../../telephone.dart';
+import 'package:telephone/telephone.dart';
 
-class IncomingCallWidget extends StatefulWidget {
-  final SipService sipService;
-  final Call call;
+class InboundCallWidget extends StatelessWidget {
+  final InboundCall call;
+  final VoidCallback onReject;
+  final VoidCallback onAccept;
 
-  const IncomingCallWidget({
+  const InboundCallWidget({
     super.key,
-    required this.sipService,
     required this.call,
+    required this.onReject,
+    required this.onAccept,
   });
 
   @override
-  State<IncomingCallWidget> createState() => _IncomingCallWidgetState();
-}
-
-class _IncomingCallWidgetState extends State<IncomingCallWidget>
-    implements SipServiceListener {
-  String get title => widget.call.remote_identity ?? '';
-
-  @override
-  void initState() {
-    super.initState();
-    widget.sipService.addSipServiceListener(this);
-  }
-
-  @override
-  void deactivate() {
-    widget.sipService.removeSipServiceListener(this);
-    super.deactivate();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final title = call.remoteIdentity ?? '';
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -57,7 +40,7 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    onPressed: () => widget.sipService.hangup(widget.call),
+                    onPressed: onReject,
                     icon: const Icon(Icons.close),
                     color: Colors.white,
                     iconSize: 24,
@@ -66,7 +49,7 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     constraints:
                         const BoxConstraints(minWidth: 50, minHeight: 50),
                     splashColor: Colors.redAccent,
-                    highlightColor: Colors.red.withOpacity(0.3),
+                    highlightColor: Colors.red.withValues(alpha: 0.3),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -76,7 +59,7 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    onPressed: () => widget.sipService.answer(widget.call),
+                    onPressed: onAccept,
                     icon: const Icon(Icons.check),
                     color: Colors.white,
                     iconSize: 24,
@@ -85,7 +68,7 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
                     constraints:
                         const BoxConstraints(minWidth: 50, minHeight: 50),
                     splashColor: Colors.blueAccent,
-                    highlightColor: Colors.blue.withOpacity(0.3),
+                    highlightColor: Colors.blue.withValues(alpha: 0.3),
                   ),
                 ),
               ],
@@ -94,19 +77,5 @@ class _IncomingCallWidgetState extends State<IncomingCallWidget>
         ),
       ),
     );
-  }
-
-  @override
-  void registrationStateChanged(RegistrationState state) {
-    // TODO: implement
-  }
-
-  @override
-  void callStateChanged(Call call, CallState state) {
-    // TODO: manage state of buttons
-  }
-  
-  @override
-  void transportStateChanged(TransportState state) {
   }
 }
